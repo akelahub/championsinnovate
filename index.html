@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UEFA Champions Innovate | Selected by Akela Hub</title>
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --ucl-dark: #0e1326;
+            --ucl-blue: #111f56;
+            --ucl-cyan: #3fcbf9;
+            --ucl-purple: #3a005a;
+            --text-white: #ffffff;
+            --text-gray: #b0b3c6;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(63, 203, 249, 0.3);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+
+        body {
+            background: radial-gradient(circle at top center, var(--ucl-blue), var(--ucl-dark) 80%);
+            color: var(--text-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 { text-transform: uppercase; letter-spacing: 1px; }
+        a { text-decoration: none; transition: 0.3s; }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- HERO SECTION --- */
+        header {
+            text-align: center;
+            padding: 80px 0 40px;
+            /* Starball background pattern */
+            background-image: url('https://img.uefa.com/imgml/uefacom/ucl/2021/logos/logo_dark.svg');
+            background-repeat: no-repeat;
+            background-position: center 20px;
+            background-size: 80px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, #fff, var(--ucl-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        header p.subhead {
+            font-size: 1.2rem;
+            color: var(--ucl-cyan);
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        /* --- METHODOLOGY SECTION --- */
+        .methodology {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--ucl-cyan);
+            padding: 30px;
+            margin-bottom: 50px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .methodology h2 { font-size: 1.5rem; margin-bottom: 15px; color: #fff; }
+        .methodology p { color: var(--text-gray); line-height: 1.6; margin-bottom: 15px; }
+        .akela-link { color: var(--ucl-cyan); font-weight: bold; }
+        .akela-link:hover { text-decoration: underline; }
+
+        /* --- FILTERS --- */
+        .filter-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--text-gray);
+            color: var(--text-gray);
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--ucl-cyan);
+            color: var(--ucl-blue);
+            border-color: var(--ucl-cyan);
+            box-shadow: 0 0 15px rgba(63, 203, 249, 0.4);
+        }
+
+        /* --- CARD GRID --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            padding-bottom: 80px;
+        }
+
+        /* --- CARDS --- */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(63, 203, 249, 0.2);
+            border-color: var(--ucl-cyan);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--ucl-cyan) 0%, transparent 70%);
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            border-radius: 8px;
+            object-fit: contain;
+            padding: 2px;
+        }
+
+        .company-info h3 { font-size: 1.1rem; margin-bottom: 4px; color: #fff; }
+        
+        /* Flag Styling */
+        .country-flag {
+            width: 24px;
+            height: auto;
+            border-radius: 2px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .cat-parents { background: rgba(255, 99, 71, 0.2); color: #ff6347; border: 1px solid #ff6347; }
+        .cat-coaches { background: rgba(63, 203, 249, 0.2); color: #3fcbf9; border: 1px solid #3fcbf9; }
+        .cat-workforce { background: rgba(50, 205, 50, 0.2); color: #32cd32; border: 1px solid #32cd32; }
+        .cat-women { background: rgba(255, 105, 180, 0.2); color: #ff69b4; border: 1px solid #ff69b4; }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: #ddd;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .card-match {
+            background: rgba(0,0,0,0.4);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--text-gray);
+        }
+        .card-match h4 { font-size: 0.75rem; color: var(--text-gray); margin-bottom: 3px; text-transform: uppercase;}
+        .card-match p { font-size: 0.85rem; color: #fff; font-style: italic;}
+
+        .card-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .impact-box {
+            font-size: 0.75rem;
+            color: var(--ucl-cyan);
+            font-weight: 600;
+            line-height: 1.2;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .visit-btn {
+            font-size: 0.8rem;
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .visit-btn:hover { background: #fff; color: var(--ucl-blue); }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 20px;">
+            <circle cx="50" cy="50" r="48" stroke="#fff" stroke-width="2"/>
+            <path d="M50 10 L60 40 L90 40 L65 60 L75 90 L50 70 L25 90 L35 60 L10 40 L40 40 Z" fill="none" stroke="#3fcbf9" stroke-width="2"/>
+        </svg>
+        <h1>Champions Innovate</h1>
+        <p class="subhead">Budapest 2026 | Challenge Applicants</p>
+        <p style="max-width: 700px; margin: 0 auto; color: #ddd;">
+            Showcasing the most innovative startups selected to solve social sustainability challenges in European football.
+        </p>
+    </header>
+
+    <section class="methodology">
+        <h2>The Search Methodology</h2>
+        <p>
+            These candidates were sourced and selected by <strong>Akela Hub</strong> using the <a href="https://akelanexus.com/" target="_blank" class="akela-link">Akela Nexus</a> proprietary methodology.
+        </p>
+        <p>
+            By leveraging advanced AI-driven market scanning combined with expert human curation, Akela Nexus identifies high-potential startups that align with specific social impact goals. The selection process evaluates companies on their ability to provide scalable, digital, and engaging solutions that address the specific pain points of Parents, Coaches, the Workforce, and Women in sport.
+        </p>
+    </section>
+
+    <nav class="filter-nav">
+        <button class="filter-btn active" onclick="filterCards('All')">All Applicants</button>
+        <button class="filter-btn" onclick="filterCards('Parents')">Parents</button>
+        <button class="filter-btn" onclick="filterCards('Coaches')">Coaches</button>
+        <button class="filter-btn" onclick="filterCards('Workforce')">Workforce</button>
+        <button class="filter-btn" onclick="filterCards('Women')">Women</button>
+    </nav>
+
+    <div id="cards-grid" class="grid"></div>
+</div>
+
+<script>
+    // --- UPDATED DATASET WITH ISO CODES ---
+    const data = [
+        // PARENTS
+        {cat: "Parents", company: "Spond", web: "spond.com", product: "Team App", country: "no", desc: "Frictionless team management and communication app.", match: "Removes logistical stress, the #1 cause of parent frustration.", impact: "Happier parents = better atmosphere."},
+        {cat: "Parents", company: "ClassCraft", web: "classcraft.com", product: "Gamification", country: "ca", desc: "Gamifies behavior; parents see 'XP' (points) for soft skills.", match: "Shifts parent focus from 'Goals Scored' to 'Character Points'.", impact: "Valuing behavior over winning."},
+        {cat: "Parents", company: "Slido", web: "slido.com", product: "Q&A Tool", country: "sk", desc: "Live polling and Q&A platform.", match: "Allows parents to ask anonymous questions during meetings.", impact: "Democratizes the club; parents feel heard."},
+        {cat: "Parents", company: "WWPIS", web: "parentsinsport.co.uk", product: "Education", country: "gb", desc: "'Working with Parents in Sport': Educational content.", match: "Ready-made content partner to educate parents on their role.", impact: "Direct behavior education."},
+        {cat: "Parents", company: "Seppo", web: "seppo.io", product: "Location Game", country: "fi", desc: "GPS-based gamification platform.", match: "'Family Scavenger Hunts' on match days about Fair Play rules.", impact: "Engages families physically and educationally."},
+        {cat: "Parents", company: "BOOKR Class", web: "bookrclass.com", product: "Interactive Books", country: "hu", desc: "Animated, interactive storytelling app.", match: "'White Card Stories': Interactive tales about inclusion.", impact: "Local Hungarian fit; shared family values."},
+        {cat: "Parents", company: "Omapost", web: "omapost.nl", product: "Offline Connection", country: "nl", desc: "App to send physical postcards easily.", match: "Parents/Kids send 'Thank you' cards to volunteers.", impact: "Revives the art of gratitude."},
+        
+        // COACHES
+        {cat: "Coaches", company: "LiveSchool", web: "liveschoolinc.com", product: "Behavior App", country: "us", desc: "Point system for tracking student behavior (PBIS).", match: "The digital 'White Card': Coaches award points for Fair Play.", impact: "Operationalizes positive behavior reinforcement."},
+        {cat: "Coaches", company: "Coachbetter", web: "coachbetter.com", product: "Coach Platform", country: "ch", desc: "360° coaching tool: drills, team management, education.", match: "Digital assistant for amateur coaches to plan holistic sessions.", impact: "Professionalizes the grassroots volunteer coach."},
+        {cat: "Coaches", company: "Rinus (KNVB)", web: "knvb.nl/rinus", product: "Coach App", country: "nl", desc: "Free app with drills and tools for amateur coaches.", match: "Helps the 'well-meaning dad' become a sound coach.", impact: "Improves training quality and fun."},
+        {cat: "Coaches", company: "BelievePerform", web: "believeperform.com", product: "Mental Health", country: "gb", desc: "Visual mental health resources and infographics.", match: "Gives coaches visual tools to discuss anxiety with kids.", impact: "Mental well-being becomes part of training."},
+        {cat: "Coaches", company: "Microsoft Reflect", web: "reflect.microsoft.com", product: "Well-being", country: "us", desc: "Emotional check-in tool (Emotional Monsters).", match: "Coach sees how the team feels before playing.", impact: "Empathy-driven coaching."},
+        {cat: "Coaches", company: "LearnWorlds", web: "learnworlds.com", product: "LMS Platform", country: "cy", desc: "Platform to build online academies.", match: "Create a 'UEFA Grassroots Academy' for micro-learning.", impact: "Accessible education on the go."},
+        {cat: "Coaches", company: "GoodHabitz", web: "goodhabitz.com", product: "Soft Skills", country: "nl", desc: "Fun, snackable online training courses.", match: "Coaches learn 'Communication' or 'Cultural Diversity' easily.", impact: "Up-skilling volunteers beyond football."},
+        {cat: "Coaches", company: "Prezi", web: "prezi.com", product: "Visuals", country: "hu", desc: "Zooming presentation software.", match: "Visualizing the 'Code of Conduct' dynamically.", impact: "Engaging communication of rules."},
+        {cat: "Coaches", company: "Craft", web: "craft.do", product: "Documentation", country: "hu", desc: "Beautiful, mobile-friendly documents.", match: "Creating 'Digital Handbooks' for new coaches.", impact: "Information actually gets read."},
+        {cat: "Coaches", company: "Kahoot!", web: "kahoot.com", product: "Quiz", country: "no", desc: "Gamified quiz platform.", match: "'Halftime Quiz' regarding rules/fair play.", impact: "Fun, interactive education."},
+
+        // WORKFORCE
+        {cat: "Workforce", company: "Mobilize", web: "mobilize.io", product: "Community", country: "us", desc: "Professional community management platform.", match: "A dedicated space for volunteers to connect and share tips.", impact: "Reduces isolation; builds a 'Team Workforce'."},
+        {cat: "Workforce", company: "Deed", web: "joindeed.com", product: "Social Impact", country: "us", desc: "Modern, visual volunteering platform.", match: "Makes volunteering look cool/shareable (attracts Gen Z).", impact: "Increases recruitment of young volunteers."},
+        {cat: "Workforce", company: "OpenBadge Factory", web: "openbadgefactory.com", product: "Badging", country: "fi", desc: "Standard for issuing digital Open Badges.", match: "Volunteers earn official badges for their CV.", impact: "Tangible recognition and career value."},
+        {cat: "Workforce", company: "Point App", web: "pointapp.org", product: "Volunteer App", country: "us", desc: "Simple app to find and manage volunteer gigs.", match: "Lowers the barrier to entry for new volunteers.", impact: "Easier recruitment."},
+        {cat: "Workforce", company: "Beekeeper", web: "beekeeper.io", product: "Frontline App", country: "ch", desc: "App for non-desk employees.", match: "Reaches volunteers who don't use email.", impact: "Inclusion of the operational workforce."},
+        {cat: "Workforce", company: "Young Impact", web: "youngimpact.nl", product: "Activation", country: "nl", desc: "Youth activation programs.", match: "Empowers youth to take the lead in volunteering.", impact: "Future-proofing the workforce."},
+        {cat: "Workforce", company: "Staffomatic", web: "staffomatic.com", product: "Scheduling", country: "de", desc: "Shift planning tool.", match: "Solves the 'Who is refereeing?' chaos.", impact: "Reduces friction and no-shows."},
+        {cat: "Workforce", company: "Happeo", web: "happeo.com", product: "Intranet", country: "fi", desc: "Social intranet.", match: "The 'Digital Clubhouse' for committee members.", impact: "Centralized knowledge and culture."},
+        {cat: "Workforce", company: "Bloomerang", web: "bloomerang.co", product: "CRM", country: "us", desc: "Donor/Volunteer relationship management.", match: "Treats volunteers like VIPs with automated appreciation.", impact: "Long-term retention."},
+        {cat: "Workforce", company: "Bitrise", web: "bitrise.io", product: "CI/CD", country: "hu", desc: "Mobile app development automation.", match: "Tech employees help clubs digitize (Corporate Volunteering).", impact: "Skills-based volunteering."},
+        {cat: "Workforce", company: "Optimise Fdn", web: "optimisefoundation.org", product: "Recruitment", country: "gb", desc: "Recruitment & optimization for non-profits.", match: "Strategic approach to finding the right volunteers.", impact: "Efficiency in recruitment."},
+        {cat: "Workforce", company: "CricketTogether", web: "cricketmedia.com", product: "eMentoring", country: "us", desc: "Platform for reading/mentoring kids.", match: "Example of 'Micro-volunteering' (low commitment).", impact: "Attracts busy professionals."},
+
+        // WOMEN
+        {cat: "Women", company: "Peanut", web: "peanut-app.io", product: "Social Network", country: "gb", desc: "Social networking app connecting women/mothers.", match: "Connects mothers at the club to form support pods.", impact: "Reduces isolation; builds a community."},
+        {cat: "Women", company: "Wild.AI", web: "wild.ai", product: "FemTech", country: "gb", desc: "AI training coach based on female physiology.", match: "Empowers women to train with their physiology.", impact: "Performance and health optimization."},
+        {cat: "Women", company: "Oky (UNICEF)", web: "okyapp.info", product: "Health", country: "un", desc: "Open-source period tracker/education.", match: "Menstrual health education to prevent drop-out.", impact: "Keeping girls in the game."},
+        {cat: "Women", company: "Textio", web: "textio.com", product: "HR Tech", country: "us", desc: "Augmented writing to remove gender bias.", match: "Helps clubs write inclusive ads for coaches.", impact: "Increases female applicants."},
+        {cat: "Women", company: "SafeToNet", web: "safetonet.com", product: "Cyber Safety", country: "gb", desc: "AI keyboard detecting bullying/grooming.", match: "Safeguards digital team chats for girls.", impact: "Online safety."},
+        {cat: "Women", company: "Clue", web: "helloclue.com", product: "FemTech", country: "de", desc: "Data-driven period tracker.", match: "Helps coaches understand female athlete health patterns.", impact: "Data-driven inclusivity."},
+        {cat: "Women", company: "Grace Health", web: "grace.health", product: "Health Chat", country: "se", desc: "Lightweight female health assistant.", match: "Accessible health advice for girls via chat.", impact: "Body literacy and confidence."},
+        {cat: "Women", company: "Fearless Women", web: "fearlesswomen.co.uk", product: "Agency", country: "gb", desc: "Women's sport consultancy.", match: "Strategy and content to change narratives.", impact: "Cultural change."},
+        {cat: "Women", company: "Mentorloop", web: "mentorloop.com", product: "Mentoring", country: "au", desc: "Mentoring software platform.", match: "Connects aspiring female coaches with mentors.", impact: "Career pathways for women."},
+        {cat: "Women", company: "Together", web: "togetherplatform.com", product: "Mentoring", country: "ca", desc: "AI matching for mentorship.", match: "Matches mentors/mentees based on personality.", impact: "High-quality support relationships."},
+        {cat: "Women", company: "Eldera", web: "eldera.ai", product: "Intergenerational", country: "us", desc: "Connects 60+ adults with youth.", match: "Older women mentoring young girls.", impact: "Role models outside of sport."},
+        {cat: "Women", company: "Frisse Gedachtes", web: "frissegedachtes.nl", product: "Mental Health", country: "nl", desc: "Student psychology chat platform.", match: "Anonymous mental support for girls.", impact: "Accessible mental health support."},
+        {cat: "Women", company: "50inTech", web: "50intech.com", product: "DEI Platform", country: "fr", desc: "Matchmaking for women in Tech.", match: "Mechanism to match professional women to Club Boards.", impact: "Leadership diversity."},
+        {cat: "Women", company: "Fearless Org", web: "fearlessorganization.com", product: "Psych Safety", country: "dk", desc: "Psychological safety scan.", match: "Measuring if the club environment feels safe for girls.", impact: "Actionable culture data."},
+        {cat: "Women", company: "CritterCoin", web: "crittercoin.com", product: "Rewards", country: "us", desc: "Digital coin/reward system.", match: "Can be used to incentivize 'Girls bringing friends'.", impact: "Growth hacking participation."},
+        {cat: "Women", company: "YuMuuv", web: "yumuuv.com", product: "Wellness", country: "ee", desc: "Corporate wellness challenges.", match: "Focus on holistic health appeals to broader demographic.", impact: "Community health over competition."},
+        {cat: "Women", company: "Brainly", web: "brainly.com", product: "Peer Learning", country: "pl", desc: "Peer-to-peer homework help.", match: "Girls helping girls (mentoring logic).", impact: "Building supportive peer networks."}
+    ];
+
+    const grid = document.getElementById('cards-grid');
+    const buttons = document.querySelectorAll('.filter-btn');
+
+    function getLogoUrl(domain) {
+        return `https://logo.clearbit.com/${domain}`;
+    }
+    
+    function getFlagUrl(code) {
+        // Use flagcdn for simple ISO flags
+        if(code === 'un') return 'https://flagcdn.com/w40/un.png'; // Fallback for global
+        return `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
+    }
+
+    function getClassByCategory(cat) {
+        switch(cat) {
+            case 'Parents': return 'cat-parents';
+            case 'Coaches': return 'cat-coaches';
+            case 'Workforce': return 'cat-workforce';
+            case 'Women': return 'cat-women';
+            default: return '';
+        }
+    }
+
+    function renderCards(filter) {
+        grid.innerHTML = '';
+
+        const filteredData = filter === 'All' 
+            ? data 
+            : data.filter(item => item.cat === filter);
+
+        filteredData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            const badgeClass = getClassByCategory(item.cat);
+            
+            let url = item.web;
+            if(!url.startsWith('http')) url = 'https://' + url;
+
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="header-left">
+                        <img src="${getLogoUrl(item.web)}" 
+                             alt="${item.company}" 
+                             class="company-logo"
+                             onerror="this.style.display='none'">
+                        <div class="company-info">
+                            <h3>${item.company}</h3>
+                            <span class="badge ${badgeClass}">${item.cat}</span>
+                        </div>
+                    </div>
+                    <img src="${getFlagUrl(item.country)}" alt="${item.country}" class="country-flag" title="${item.country.toUpperCase()}">
+                </div>
+                
+                <p class="card-desc">${item.desc}</p>
+                
+                <div class="card-match">
+                    <h4>UEFA Challenge Match</h4>
+                    <p>"${item.match}"</p>
+                </div>
+
+                <div class="card-footer">
+                    <div class="impact-box">
+                        <span>⚡ ${item.impact}</span>
+                    </div>
+                    <a href="${url}" target="_blank" class="visit-btn">Visit</a>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function filterCards(category) {
+        buttons.forEach(btn => {
+            if(btn.innerText.includes(category) || (category === 'All' && btn.innerText === 'All Applicants')) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        renderCards(category);
+    }
+
+    // Init
+    renderCards('All');
+
+</script>
+
+</body>
+</html>
